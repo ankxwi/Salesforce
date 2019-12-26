@@ -1,0 +1,71 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global">
+  <aura:attribute name="min" type="integer" access="Public"/>
+  <aura:attribute name="max" type="integer" access="Public"/>
+  <aura:attribute name="rezult" type="integer" access="Public"/>
+  <aura:attribute name="checkbtn" type="Boolean" access="Public" default="true"/>
+
+  <lightning:layout class="slds-page-header slds-page-header--object-home">
+    <lightning:layoutItem>
+      <lightning:icon
+        iconName="standard:collection_variable"
+        alternativeText="My Expenses"
+      />
+    </lightning:layoutItem>
+    <lightning:layoutItem padding="horizontal-small">
+      <div class="page-section page-header">
+        <h1 class="slds-text-heading--label">Random</h1>
+        <h2 class="slds-text-heading--medium">My Random</h2>
+      </div>
+    </lightning:layoutItem>
+  </lightning:layout>
+  <lightning:layout>
+    <lightning:layoutItem padding="around-small" size="6">
+    </lightning:layoutItem>
+  </lightning:layout>
+
+  <div aria-labelledby="newexpenseform" onclick="{!c.check}">
+    <fieldset class="slds-box slds-theme--default slds-container--small">
+      <legend id="newexpenseform" class="slds-text-heading--small slds-p-vertical--medium">
+      Settings
+      </legend>
+
+      <form class="slds-form--stacked">
+        <lightning:input
+          aura:id="expenseform"
+          type="integer"
+          name="min"
+          label="Min"
+          placeholder="1"
+          value="{!v.min}"
+        />
+
+        <lightning:input
+          aura:id="expenseform"
+          type="integer"
+          name="max"
+          label="Max"
+          placeholder="100"
+          value="{!v.max}"
+        />
+
+        <lightning:button
+          class="slds-m-top--medium"
+          label="Random"
+          title="Random"
+          disabled="{!v.checkbtn}"
+          onclick="{!c.random}"
+          variant="brand"
+        />
+
+        <lightning:card title="Result">
+          <lightning:formattedNumber
+            aura:id="expenseform"
+            title="rez"
+            label="Result"
+            value="{!v.rezult}"
+          />
+        </lightning:card>
+      </form>
+    </fieldset>
+  </div>
+</aura:component>

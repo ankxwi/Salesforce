@@ -1,0 +1,26 @@
+({
+  random: function(component, event, helper) {
+    var min = component.get("{!v.min}");
+    var max = component.get("{!v.max}");
+
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    component.set(
+      "{!v.rezult}",
+      Math.floor(Math.random() * (max - min + 1)) + min
+    );
+  },
+
+  check: function(component, event, helper) {
+    var min = component.get("{!v.min}");
+    var max = component.get("{!v.max}");
+    var rezult = component.get("{!v.rezult}");
+    var a = component.get("{!v.checkbtn}");
+
+    if (min < 0 || min == 0 || (max < min || max == null)) {
+      component.set("{!v.checkbtn}", true);
+    } else {
+      component.set("{!v.checkbtn}", false);
+    }
+  }
+});
