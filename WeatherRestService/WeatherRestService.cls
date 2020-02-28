@@ -1,7 +1,7 @@
 public class WeatherRestService {
 	public static void getWeather(String city){
         
-		String key = 'daf8e59de26d0cd88adc3c7edfab348f';
+	String key = 'daf8e59de26d0cd88adc3c7edfab348f';
 
         HttpRequest request = new HttpRequest();
         request.setEndpoint('http://api.weatherstack.com/current?access_key='+ key +'&query='+city);
@@ -15,7 +15,7 @@ public class WeatherRestService {
         System.debug('Сity: ' + w.location.name);        
         System.debug('Temperature: ' + w.current.temperature + '\u00B0' + 'C');
         System.debug('Weather descriptions: ' + w.current.weather_descriptions);
-		System.debug('Wind speed: ' + w.current.wind_speed + ' km/h');
+	System.debug('Wind speed: ' + w.current.wind_speed + ' km/h');
         System.debug('Pressure: ' + w.current.pressure + 'milliBar');        
     }
 
