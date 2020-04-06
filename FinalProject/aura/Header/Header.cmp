@@ -1,0 +1,21 @@
+<!--
+ - Created by virus on 05.03.2020.
+ -->
+
+<aura:component  description="Header" controller="GetExchangeRates">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <aura:attribute name="ExchangeRates" type="List"/>
+    <aura:attribute name="SelectRate" type="Decimal" default="228"/>
+    <aura:attribute name="options" type="List" default="[
+    {'label': 'BYN', 'value': 'BYN__c'},
+    {'label': 'USD', 'value': 'USD__c'},
+    {'label': 'EUR', 'value': 'EUR__c'},
+    {'label': 'RUB', 'value': 'RUB__c'},
+    {'label': 'PLN', 'value': 'PLN__c'},
+    ]"/>
+    <aura:text value="{!v.SelectRate}"/>
+    <lightning:card>
+        <lightning:combobox name="progress" label="Status" value="BYN" placeholder="Select Progress" options="{! v.options }" class="" onchange="{! c.handleChange }"/>
+    </lightning:card>
+</aura:component>

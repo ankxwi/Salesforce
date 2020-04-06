@@ -1,0 +1,52 @@
+<apex:page controller="VFPageController" showHeader="false" sidebar="false">
+    <apex:includeLightning />
+    <apex:form>
+        <apex:inputhidden id="hidData" value="{!PDFData}"/>
+
+        <apex:actionfunction name="jsGeneratePDF" action="{!downloadPDF}" />
+
+        <div id="lightning" />
+
+        <style>
+            body{
+                background-color: antiquewhite;
+            }
+        </style>
+
+        <script>
+            function saveData(data, callback){
+                let hidData = document.getElementById('{!$Component.hidData}');
+                hidData.value = JSON.stringify(data);
+
+                //invoke PDF Generation
+                jsGeneratePDF();
+
+                //invoke callback;
+                if(typeof callback == 'function') callback();
+            }
+
+                $Lightning.use("c:Container", function () {
+                    $Lightning.createComponent("c:MainCmp",
+                            {},
+                            "lightning",
+                            function (cmp) {
+                                console.log("Lightning Out Success v2.0");
+                            });
+                });
+
+            function loadComponents() {
+                $Lightning.use("c:Container", function () {
+                    $Lightning.createComponent("c:DataProcessor",
+                            {sendData: saveData},
+                            "lightning",
+                            function (cmp) {
+                                console.log("Lightning Out Success v2.0");
+                            });
+                });
+            }
+
+            loadComponents();
+
+        </script>
+    </apex:form>
+</apex:page>

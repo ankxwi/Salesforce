@@ -1,0 +1,13 @@
+<!--
+ - Created by virus on 30.03.2020.
+ -->
+
+<aura:component access="global">
+
+    <!-- attribute to accept Visualforce page's javascript method -->
+    <aura:attribute name="sendData" type="object"/>
+
+    <aura:handler name="loadData" event="c:PDFEvent" action="{!c.test}"/>
+    <!-- Button component to invoke PDF download -->
+    <lightning:button label="Download Document" onclick="{!c.downloadDocument}" />
+</aura:component>

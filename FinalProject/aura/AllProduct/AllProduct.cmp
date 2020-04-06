@@ -1,0 +1,87 @@
+<!--
+ - Created by virus on 05.03.2020.
+ -->
+
+<aura:component controller="GetProduct" access="global">
+    <!--  -->
+
+    <aura:attribute name="Scale" type="Integer" />
+    <aura:attribute name="Rate" type="Decimal" />
+    <aura:attribute name="Products" type="PricebookEntry[]" />
+    <aura:attribute name="SelectedProduct" type="List" />
+    <aura:attribute name="page" type="integer" />
+    <aura:attribute name="pages" type="integer" />
+    <aura:attribute name="total" type="integer" />
+    <aura:attribute name="recordToDisplay" type="Integer" default="8" />
+    <aura:attribute name="myEnterSearch" type="String" />
+    <aura:attribute name="objs" type="Object[]" />
+    <aura:attribute name="val" type="Integer" default="50" />
+
+    <aura:registerEvent name="PDF" type="c:PDFEvent"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+    <div class="slds-m-around_small slds-card">
+        <div class="slds-page-header" role="banner">
+            <div class="slds-align_absolute-center">
+                <lightning:button disabled="{!v.page == 1}" variant="brand" label="Previous Page" onclick="{! c.navigate }" />
+                <lightning:button disabled="{!v.page == v.pages}" aura:id="previousPage" variant="brand" label="Next Page" onclick="{! c.navigate }" />
+            </div>
+            <p class="slds-page-header__title slds-truncate">{!v.total} Products • page {!v.page} / {!v.pages}</p>
+
+        </div>
+    </div>
+    <div class="slds-grid">
+
+        <!-- Block Filters -->
+        <div class="slds-col slds-size_1-of-5 slds-m-horizontal_small">
+            <article class="slds-card">
+
+                <div class="slds-grid slds-grid_vertical">
+                    <div class="slds-card__header slds-col">
+                        <lightning:icon iconName="utility:filterList"/>
+                        <span class="slds-text-heading_medium slds-m-left_medium">Filter</span>
+                    </div>
+                    <div class="slds-col">
+                        <div oninput="{! c.handleInput}"  onkeyup="{! c.handleKeyUp}"  style="width:300px">
+                            <lightning:input name="enter-search" label="Search when user hits the 'enter' key" value="{!v.myEnterSearch}"/>
+                        </div>
+                        <aura:text value="{!v.myEnterSearch}" />
+                        <div>
+                            <lightning:slider label="Volume" value="{!v.val}" max="1000"/>
+                            <p>Class</p>
+                            <ui:inputCheckbox label="Sports" name="Class" change="{!c.handleClick}"/>
+                            <ui:inputCheckbox label="Mountain" name="Class" change="{!c.handleClick}"/>
+                            <ui:inputCheckbox label="Hybrid" name="Class" change="{!c.handleClick}"/>
+                            <p>Material</p>
+                            <ui:inputCheckbox label="Aluminum" name="Material" change="{!c.handleClick}"/>
+                            <ui:inputCheckbox label="Steel" name="Material" change="{!c.handleClick}"/>
+                            <ui:inputCheckbox label="Carbon fiber" name="Material" change="{!c.handleClick}"/>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+
+        <!-- Block Products -->
+        <div class="slds-col">
+            <lightning:card>
+                <lightning:layout horizontalAlign="space" verticalAlign="center" multipleRows="true">
+                   <aura:iteration items="{!v.Products}" var="item" indexVar="index">
+                        <lightning:layoutItem flexibility="auto" size="12" smallDeviceSize="6" mediumDeviceSize="4" largeDeviceSize="3">
+                            <div align="center" class="slds-m-bottom_large" id="{!index}" onclick="{!c.selectProduct}">
+                                <img src="{!item.Product2.DisplayUrl}" class="slds-size_7-of-8 slds-box slds-box_x-small" />
+                                <p>{!item.Name}</p>
+                                <p>{!item.Product2.Material__c}</p>
+                                <p>{!item.Product2.Class__c}</p>
+                            </div>
+                        </lightning:layoutItem>
+                    </aura:iteration>
+                </lightning:layout>
+            </lightning:card>
+        </div>
+        <div class="slds-col slds-size_1-of-4 slds-m-horizontal_small">
+            <c:ProductDescription Product="{!v.SelectedProduct}" ExchangeRates="{!v.Rate}" CurScale="{!v.Scale}"/>
+        </div>
+    </div>
+</aura:component>

@@ -1,0 +1,32 @@
+<!--
+ - Created by virus on 26.03.2020.
+ -->
+
+<aura:component description="ProductDescription">
+    <aura:attribute name="Product" type="List"/>
+    <aura:attribute name="CurScale" type="Integer"/>
+    <aura:attribute name="ExchangeRates" type="Decimal"/>
+
+
+    <lightning:card>
+        <div style="height:300px">
+            <aura:iteration items="{!v.Product}" var="item">
+                <p>{!item.Name}</p>
+                <div align="center">
+                    <img src="{!item.Product2.DisplayUrl}" class="slds-size_7-of-8 slds-box slds-box_x-small" />
+                </div>
+                <dl class="slds-dl_inline">
+                    <dt class="slds-dl_inline__label slds-text-color_weak">Class:</dt>
+                    <dd class="slds-dl_inline__detail">{!item.Product2.Class__c}</dd>
+                    <dt class="slds-dl_inline__label slds-text-color_weak">Material:</dt>
+                    <dd class="slds-dl_inline__detail">{!item.Product2.Material__c}</dd>
+                    <dt class="slds-dl_inline__label slds-text-color_weak">Price:</dt>
+                    <dd class="slds-dl_inline__detail"> <lightning:formattedNumber value="{!item.UnitPrice / v.ExchangeRates * v.CurScale}" maximumFractionDigits="2"/> </dd>
+                </dl>
+                <c:ModalWindow id="{!item.Product2.Id}"/>
+            </aura:iteration>
+
+        </div>
+    </lightning:card>
+
+</aura:component>
