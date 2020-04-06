@@ -23,7 +23,7 @@
                     <dt class="slds-dl_inline__label slds-text-color_weak">Price:</dt>
                     <dd class="slds-dl_inline__detail"> <lightning:formattedNumber value="{!item.UnitPrice / v.ExchangeRates * v.CurScale}" maximumFractionDigits="2"/> </dd>
                 </dl>
-                <c:ModalWindow id="{!item.Product2.Id}"/>
+                
             </aura:iteration>
 
         </div>
